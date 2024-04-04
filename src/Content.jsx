@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { ProductsIndex } from "./ProductsIndex";
@@ -9,6 +10,9 @@ import { Signup } from "./Signup";
 import { Login } from "./Login";
 import { Routes, Route } from "react-router-dom";
 import { LogoutLink } from "./LogoutLink";
+
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://mini-capstone-api-87e3.onrender.com";
 
 export function Content() {
   const [products, setProducts] = useState([]);
