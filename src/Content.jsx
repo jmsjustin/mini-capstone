@@ -11,9 +11,6 @@ import { Login } from "./Login";
 import { Routes, Route } from "react-router-dom";
 import { LogoutLink } from "./LogoutLink";
 
-axios.defaults.baseURL =
-  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://mini-capstone-api-87e3.onrender.com";
-
 export function Content() {
   const [products, setProducts] = useState([]);
   const [isProductsShowVisible, setIsProductsShowVisible] = useState(false);
@@ -21,7 +18,7 @@ export function Content() {
 
   const handleIndexProducts = () => {
     console.log("handleIndexProducts");
-    axios.get("http://localhost:3000/products.json").then((response) => {
+    axios.get("/products.json").then((response) => {
       console.log(response.data);
       setProducts(response.data);
     });
@@ -29,7 +26,7 @@ export function Content() {
 
   const handleCreateProduct = (params, successCallback) => {
     console.log("handleCreateProduct", params);
-    axios.post("http://localhost:3000/products.json", params).then((response) => {
+    axios.post("/products.json", params).then((response) => {
       setProducts([...products, response.data]);
       successCallback();
     });
@@ -43,7 +40,7 @@ export function Content() {
 
   const handleUpdateProduct = (id, params, successCallback) => {
     console.log("handleUpdateProduct", params);
-    axios.patch(`http://localhost:3000/products/${id}.json`, params).then((response) => {
+    axios.patch(`/products/${id}.json`, params).then((response) => {
       setProducts(
         products.map((product) => {
           if (product.id === response.data.id) {
@@ -61,7 +58,7 @@ export function Content() {
   const handleDestroyProduct = (id) => {
     console.log("handleDestroyProduct", id);
     // eslint-disable-next-line no-unused-vars
-    axios.delete(`http://localhost:3000/products/${id}.json`).then((response) => {
+    axios.delete(`/products/${id}.json`).then((response) => {
       setProducts(products.filter((product) => product.id !== id));
       handleClose();
     });
